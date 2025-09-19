@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ceyline Travels - Sri Lanka Travel Website Design System */
+/* Blue Ocean Theme with Beautiful Gradients and Animations */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* Sri Lanka Ocean Blue Color Palette */
+    --background: 210 100% 98%;
+    --foreground: 210 24% 16%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 24% 16%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 24% 16%;
+
+    /* Ocean Blue Primary Colors */
+    --primary: 210 100% 45%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 210 100% 40%;
+    --primary-glow: 210 100% 60%;
+
+    /* Ceylon Gold Accent */
+    --secondary: 45 100% 60%;
+    --secondary-foreground: 210 24% 16%;
+    --secondary-hover: 45 100% 55%;
+
+    /* Tropical Muted Colors */
+    --muted: 210 40% 95%;
+    --muted-foreground: 210 16% 55%;
+
+    --accent: 195 100% 85%;
+    --accent-foreground: 210 24% 16%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 20% 88%;
+    --input: 210 20% 88%;
+    --ring: 210 100% 45%;
+
+    --radius: 0.75rem;
+
+    /* Beautiful Gradients */
+    --gradient-ocean: linear-gradient(135deg, hsl(210 100% 45%), hsl(195 100% 50%));
+    --gradient-sunset: linear-gradient(135deg, hsl(45 100% 60%), hsl(30 100% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(210 100% 45%) 0%, hsl(195 100% 50%) 50%, hsl(180 100% 55%) 100%);
+    --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+    
+    /* Shadows with Blue Glow */
+    --shadow-soft: 0 4px 20px -2px hsl(210 100% 45% / 0.1);
+    --shadow-medium: 0 8px 30px -4px hsl(210 100% 45% / 0.15);
+    --shadow-strong: 0 16px 60px -8px hsl(210 100% 45% / 0.25);
+    --shadow-glow: 0 0 40px hsl(210 100% 60% / 0.3);
+
+    /* Animation Variables */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .dark {
+    --background: 210 24% 8%;
+    --foreground: 210 40% 98%;
+    --primary: 210 100% 55%;
+    --primary-hover: 210 100% 50%;
+    --card: 210 24% 10%;
+    --card-foreground: 210 40% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Custom Component Styles */
+  .hero-section {
+    @apply relative min-h-screen flex items-center justify-center bg-gradient-hero overflow-hidden;
+  }
+  
+  .destination-card {
+    @apply relative overflow-hidden rounded-xl bg-gradient-card backdrop-blur-sm border border-white/20 shadow-medium transition-all duration-500 hover:shadow-strong hover:scale-105;
+  }
+  
+  .destination-card:hover {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .floating-nav {
+    @apply fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-white/20 transition-all duration-300;
+  }
+  
+  .section-reveal {
+    @apply opacity-0 translate-y-8 transition-all duration-700;
+  }
+  
+  .section-reveal.revealed {
+    @apply opacity-100 translate-y-0;
+  }
+  
+  .image-hover-zoom {
+    @apply transition-transform duration-700 group-hover:scale-110;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-ocean bg-clip-text text-transparent;
+  }
+  
+  .btn-ocean {
+    @apply bg-gradient-ocean text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:shadow-glow hover:scale-105 active:scale-95;
+  }
+  
+  .btn-sunset {
+    @apply bg-gradient-sunset text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:shadow-medium hover:scale-105;
+  }
+}
