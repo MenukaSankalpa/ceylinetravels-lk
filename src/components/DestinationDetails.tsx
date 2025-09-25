@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Clock, Users, Star, MapPin, Calendar, Camera, Play } from 'lucide-react';
+import { Clock, Users, Star, MapPin, Calendar, Camera, Play, Plus, Check } from 'lucide-react';
+import { useBooking } from '@/contexts/BookingContext';
 import polonnaruwaImage from '@/assets/polonnaruwa.jpg';
 import nuwaraEliyaImage from '@/assets/nuwara-eliya.jpg';
 import hotAirBalloonImage from '@/assets/hot-air-balloon-new.jpg';
@@ -17,7 +18,10 @@ import sriLankaLeopardNewImage from '@/assets/sri-lanka-leopard-new.jpg';
 import ellaRockImage from '@/assets/ella-rock.jpg';
 import diyalumaFallsImage from '@/assets/diyaluma-falls.jpg';
 import ayurvedaSpaImage from '@/assets/ayurveda-spa.jpg';
+import ayurvedicSpaNewImage from '@/assets/ayurvedic-spa-new.jpg';
 import villageVibesImage from '@/assets/traditional-village-life.jpg';
+import heroSigiriyaImage from '@/assets/hero-sigiriya.jpg';
+import sigiriyaNewImage from '@/assets/sigiriya-new.jpg';
 
 interface DestinationCategory {
   id: string;
@@ -266,11 +270,85 @@ const destinationCategories: DestinationCategory[] = [
         image: '/api/placeholder/400/300'
       }
     ]
+  },
+  {
+    id: 'wellness-harmony',
+    title: 'Wellness Harmony',
+    subtitle: 'Ayurvedic Wellness & Healing',
+    description: 'Sri Lanka has been a sanctuary for holistic healing for over 3,000 years, with a deeply-rooted tradition of Ayurveda. Experience a transformative journey to restore balance to your body, mind, and spirit using ancient, time-tested practices in the "Science of Life."',
+    image: ayurvedicSpaNewImage,
+    duration: '5-14 Days',
+    groupSize: '1-8 People',
+    rating: 4.9,
+    highlights: [
+      'Personalized Dosha Assessment',
+      'Panchakarma Detox Therapy',
+      'Traditional Ayurvedic Treatments',
+      'Ayurvedic Cuisine & Medicine',
+      'Yoga & Meditation Sessions'
+    ],
+    subDestinations: [
+      {
+        name: 'Barberyn Ayurveda Resorts',
+        description: 'Comprehensive treatments in tranquil beachfront settings with personalized programs',
+        image: ayurvedaSpaImage
+      },
+      {
+        name: 'Siddhalepa Ayurveda Health Resort',
+        description: 'Structured programs featuring deep-cleansing Panchakarma therapy and herbal products',
+        image: '/api/placeholder/400/300'
+      },
+      {
+        name: 'Santani Wellness Resort & Spa',
+        description: 'Minimalist luxury blending ancient Ayurvedic principles in stunning hillside location',
+        image: '/api/placeholder/400/300'
+      },
+      {
+        name: 'Traditional Treatment Centers',
+        description: 'Authentic therapeutic treatments including Abhyanga, Shirodhara, and herbal medicine',
+        image: '/api/placeholder/400/300'
+      }
+    ]
+  },
+  {
+    id: 'time-travelers',
+    title: 'Time Travelers',
+    subtitle: 'Ancient Cities & UNESCO Heritage',
+    description: 'Journey back in time to explore Sri Lanka\'s magnificent ancient capitals and UNESCO World Heritage sites. Walk through medieval Sinhalese civilization at Polonnaruwa and climb the legendary Sigiriya Rock Fortress, experiencing 1,500 years of history and architectural marvels.',
+    image: sigiriyaNewImage,
+    duration: '3-6 Days',
+    groupSize: '2-15 People',
+    rating: 4.9,
+    highlights: [
+      'UNESCO World Heritage Sites',
+      'Ancient Royal Palaces',
+      'Rock-Cut Buddha Statues',
+      'Medieval Architecture',
+      'Historical Guided Tours'
+    ],
+    subDestinations: [
+      {
+        name: 'Ancient City of Polonnaruwa',
+        description: 'Medieval capital with Gal Vihara rock-cut Buddhas, Royal Palace ruins, and sacred Vatadage',
+        image: polonnaruwaImage
+      },
+      {
+        name: 'Sigiriya Rock Fortress',
+        description: '5th-century sky palace with famous frescoes, Mirror Wall, and breathtaking summit views',
+        image: heroSigiriyaImage
+      },
+      {
+        name: 'Cultural Triangle Sites',
+        description: 'Additional ancient temples, stupas, and archaeological wonders of Sri Lanka\'s heartland',
+        image: '/api/placeholder/400/300'
+      }
+    ]
   }
 ];
 
 const DestinationDetails = () => {
   const [visibleSections, setVisibleSections] = useState<string[]>([]);
+  const { addDestination, removeDestination, isDestinationSelected } = useBooking();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -309,6 +387,18 @@ const DestinationDetails = () => {
           </p>
         </div>
 
+        {/* Call to Action Section */}
+        <div className="text-center mb-16 p-8 bg-primary/5 rounded-2xl border border-primary/10">
+          <h3 className="text-3xl md:text-4xl font-display font-bold mb-4">
+            <span className="text-gradient">Select Your Destination</span>
+            <br />
+            <span className="text-foreground">to Send an Inquiry</span>
+          </h3>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Choose from our curated experiences below and click the plus button to add them to your journey planner.
+          </p>
+        </div>
+
         {/* Destination Categories */}
         <div className="space-y-32">
           {destinationCategories.map((category, index) => {
@@ -338,12 +428,43 @@ const DestinationDetails = () => {
                 {/* Content */}
                 <div className={`${isEven ? 'lg:order-2' : 'lg:order-1'} space-y-6`}>
                   <div className="space-y-4">
-                    <h3 className="text-4xl md:text-5xl font-display font-bold text-foreground">
-                      {category.title}
-                    </h3>
-                    <p className="text-xl text-primary font-semibold">
-                      {category.subtitle}
-                    </p>
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <h3 className="text-4xl md:text-5xl font-display font-bold text-foreground">
+                          {category.title}
+                        </h3>
+                        <p className="text-xl text-primary font-semibold">
+                          {category.subtitle}
+                        </p>
+                      </div>
+                      {/* Selection Button */}
+                      <button
+                        onClick={() => {
+                          const destination = {
+                            id: category.id,
+                            title: category.title,
+                            subtitle: category.subtitle,
+                          };
+                          
+                          if (isDestinationSelected(category.id)) {
+                            removeDestination(category.id);
+                          } else {
+                            addDestination(destination);
+                          }
+                        }}
+                        className={`ml-4 p-4 rounded-full transition-all duration-300 hover:scale-110 ${
+                          isDestinationSelected(category.id)
+                            ? 'bg-primary text-white shadow-glow'
+                            : 'bg-primary/10 text-primary hover:bg-primary/20'
+                        }`}
+                      >
+                        {isDestinationSelected(category.id) ? (
+                          <Check size={32} />
+                        ) : (
+                          <Plus size={32} />
+                        )}
+                      </button>
+                    </div>
                     <p className="text-lg text-muted-foreground leading-relaxed">
                       {category.description}
                     </p>
@@ -397,6 +518,10 @@ const DestinationDetails = () => {
                           window.open('https://youtube.com/shorts/SPzKEgOKnB8?si=dQ32e5j4M-UJIMIn', '_blank');
                         } else if (category.id === 'eco-explorer') {
                           window.open('https://youtu.be/68agKvFYjgE?si=L-u094qkjHrHFQSd', '_blank');
+                        } else if (category.id === 'wellness-harmony') {
+                          window.open('https://youtube.com/shorts/ZQUBvCSbrDA?si=8qlXf62hrTXiDiH0', '_blank');
+                        } else if (category.id === 'time-travelers') {
+                          window.open('https://youtu.be/TzTFIu25eHA?si=CqHyGsDiHOG7U_Xn', '_blank');
                         } else {
                           // Placeholder for other videos
                           console.log(`Watch ${category.title} video`);

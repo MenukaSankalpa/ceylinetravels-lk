@@ -6,8 +6,13 @@ import DestinationDetails from '@/components/DestinationDetails';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import FloatingContactButton from '@/components/FloatingContactButton';
+import BookingSidebar from '@/components/BookingSidebar';
+import BookingTrigger from '@/components/BookingTrigger';
+import { useState } from 'react';
 
 const Index = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
     <div className="min-h-screen">
       <HeroSection />
@@ -18,6 +23,11 @@ const Index = () => {
       <ContactSection />
       <Footer />
       <FloatingContactButton />
+      <BookingTrigger onClick={() => setIsSidebarOpen(true)} />
+      <BookingSidebar 
+        isOpen={isSidebarOpen} 
+        onClose={() => setIsSidebarOpen(false)} 
+      />
     </div>
   );
 };

@@ -125,4 +125,32 @@
   .btn-sunset {
     @apply bg-gradient-sunset text-white px-6 py-3 rounded-full font-medium transition-all duration-300 hover:shadow-medium hover:scale-105;
   }
+
+  /* Booking Sidebar Animations */
+  .slide-in-bottom {
+    @apply animate-slide-in-bottom;
+  }
+
+  /* Vertical Writing Mode */
+  .writing-mode-vertical-rl {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+}
+
+@layer utilities {
+  @keyframes slide-in-bottom {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-in-bottom {
+    animation: slide-in-bottom 0.4s ease-out;
+  }
 }

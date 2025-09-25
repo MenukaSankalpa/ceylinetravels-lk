@@ -7,37 +7,52 @@ const AdventureCards = () => {
       description: "Explore ancient temples, royal palaces, and UNESCO World Heritage Sites",
       icon: Camera,
       gradient: "from-blue-100 to-blue-200",
-      hoverGradient: "hover:from-blue-200 hover:to-blue-300"
+      hoverGradient: "hover:from-blue-200 hover:to-blue-300",
+      destinationId: "village-vibes"
     },
     {
       title: "Wildlife Safari", 
       description: "Encounter elephants, leopards, and exotic birds in pristine national parks",
       icon: Binoculars,
       gradient: "from-sky-100 to-sky-200",
-      hoverGradient: "hover:from-sky-200 hover:to-sky-300"
+      hoverGradient: "hover:from-sky-200 hover:to-sky-300",
+      destinationId: "wild-free"
     },
     {
       title: "Beach Paradise",
       description: "Relax on golden beaches, enjoy water sports, and witness stunning sunsets",
       icon: Waves,
       gradient: "from-cyan-100 to-cyan-200", 
-      hoverGradient: "hover:from-cyan-200 hover:to-cyan-300"
+      hoverGradient: "hover:from-cyan-200 hover:to-cyan-300",
+      destinationId: "golden-escape"
     },
     {
       title: "Mountain Adventures",
       description: "Hike scenic trails, visit tea plantations, and enjoy breathtaking views",
       icon: Mountain,
       gradient: "from-indigo-100 to-indigo-200",
-      hoverGradient: "hover:from-indigo-200 hover:to-indigo-300"
+      hoverGradient: "hover:from-indigo-200 hover:to-indigo-300",
+      destinationId: "eco-explorer"
     },
     {
       title: "Culinary Journey",
       description: "Taste authentic Sri Lankan cuisine and learn traditional cooking methods",
       icon: ChefHat,
       gradient: "from-slate-100 to-slate-200",
-      hoverGradient: "hover:from-slate-200 hover:to-slate-300"
+      hoverGradient: "hover:from-slate-200 hover:to-slate-300",
+      destinationId: "taste-ceylon"
     }
   ];
+
+  const handleAdventureClick = (destinationId: string) => {
+    const destinationElement = document.querySelector(`[data-section-id="${destinationId}"]`);
+    if (destinationElement) {
+      destinationElement.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
   return (
     <section className="py-20 px-6 bg-gradient-to-b from-background to-secondary/5" id="adventures">
@@ -61,6 +76,7 @@ const AdventureCards = () => {
                 key={adventure.title}
                 className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${adventure.gradient} ${adventure.hoverGradient} p-8 cursor-pointer transform transition-all duration-500 hover-scale animate-fade-in hover:shadow-2xl hover:shadow-primary/20`}
                 style={{ animationDelay: `${index * 0.1}s` }}
+                onClick={() => handleAdventureClick(adventure.destinationId)}
               >
                 {/* Background Pattern */}
                 <div className="absolute inset-0 bg-white/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
